@@ -14,7 +14,7 @@ export default function Header(): JSX.Element {
         >
             <Button variant="contained" style={{ backgroundColor: 'blue' }}>
                 <Link
-                    to="/login"
+                    to="/Login"
                     style={{ color: 'white', textDecoration: 'none' }}
                 >
                     Iniciar Sesion

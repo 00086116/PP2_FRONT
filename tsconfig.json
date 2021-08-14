@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitAny": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+
+    "jsx": "react",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./src"]
+}
