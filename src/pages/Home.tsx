@@ -4,8 +4,7 @@ import SEO from '../components/Commons/SEO'
 import { login } from '../redux/thunks/security'
 
 const HomePage = ():JSX.Element => {
-    const dispatch = useDispatch()
-    dispatch(login())
+
     return (
         <>
             <SEO title="Home" />

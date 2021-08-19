@@ -34,13 +34,17 @@ const useStyles = makeStyles({
 
 const LoginPage = ():JSX.Element => {
     const dispatch = useDispatch()
-    dispatch(login())
+
     const classes = useStyles();
     function handlesubmit(e:FormEvent){
         e.preventDefault()
 
-        console.log(document.getElementById("name").value)
-        console.log(document.getElementById("pass").value)
+        const params={
+            username:(document.getElementById("name") as HTMLInputElement).value,
+            password:(document.getElementById("pass") as HTMLInputElement).value,
+        }
+
+        dispatch(login(params))
     }
     return (
         <>

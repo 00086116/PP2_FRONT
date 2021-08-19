@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
-import { handleActions } from '../redux/reducers/global'
+import { handleActions } from './reducers/global'
 import security from './slices/security'
 
 const allReducers = combineReducers({

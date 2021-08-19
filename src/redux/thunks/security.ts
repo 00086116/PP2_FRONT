@@ -5,26 +5,20 @@ import { urls } from '../../components/commons/API'
 
 export const login = createAsyncThunk(
     'security/login',
-    async (values, thunkApi) => {
+    async (values:{username:string,password:string}, thunkApi) => {
         try {
-            const params = new URLSearchParams()
-            Object.entries(values).forEach((o) => {
-                params.append(o[0], o[1])
-            })
 
-            //descomentar para la validacion de los datos ingresados
-            /* const response = await axios.post(urls.login, params, {
-        headers: { Authorization: `Basic ${window.btoa('IST:IST')}` }
-      })
-      axios.defaults.headers.common.Authorization = `Bearer ${response.data.access_token}`
 
-      const userInfo = await axios.post(urls.getUserInfo)*/
+
+             const response = await axios.post(urls.login, values)
+
+            console.log(response)
 
             const user = {
                 isLogged: true,
                 username: values.username,
                 provider: 'local',
-                //token: response.data.access_token,
+                token: response.data.token,
                 //userInfo: userInfo
             }
 

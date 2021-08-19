@@ -41,11 +41,11 @@ export default createSlice({
 
             !user && navigate('/')
         },
-        logOut: (state, action) => {
+        logOut: (state) => {
             window.localStorage.removeItem('user')
-            axios.defaults.headers.common.Authorization = ''
             state = initialState
-            navigate('/')
+
+           // navigate('/')
         },
     },
     extraReducers: {
@@ -53,6 +53,7 @@ export default createSlice({
             const user = action.payload
             state.user = action.payload
             window.localStorage.setItem('user', JSON.stringify(user))
+            navigate('/Home')
         },
         [getUserInfo.fulfilled.toString()]: (state, action) => {
             state.user.userInfo = action.payload
