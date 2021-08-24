@@ -9,6 +9,7 @@ const IndexPage = ():JSX.Element => {
         <>
             <SEO title="Clinica" />
             <h1>HOME</h1>
+
         </>
     )
 }

@@ -16,21 +16,18 @@ export default function Header(): JSX.Element {
          buttons(false)
     }
     function buttons(props:boolean){
-        console.log("hola"+ user.isLogged)
+
         ReactDOM.render(<>   {!props ? <Button variant="contained" style={{ backgroundColor: 'blue' }} >
                 <Link
                     to="/Login"
                     style={{ color: 'white', textDecoration: 'none' }}
-
                 >
                     Iniciar Sesion
                 </Link>
             </Button> :
             <Button variant="contained" style={{ backgroundColor: 'red' }} onClick={logout}>
                 <div
-
                     style={{ color: 'white', textDecoration: 'none' }}
-
                 >
                     Cerrar Sesion
                 </div>
@@ -38,7 +35,6 @@ export default function Header(): JSX.Element {
         </>,document.getElementById("head"))
     }
     useEffect(()=>{
-
     buttons(user.isLogged)
     },[user.isLogged])
 
