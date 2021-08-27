@@ -19,7 +19,7 @@ export const login = createAsyncThunk(
                 username: values.username,
                 provider: 'local',
                 token: response.data.token,
-                //userInfo: userInfo
+                id: response.data.id,
             }
 
             return user

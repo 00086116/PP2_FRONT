@@ -7,13 +7,22 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { resume } from '../redux/thunks/consultations'
 
 const HomePage = ():JSX.Element => {
-
+    const dispatch= useDispatch()
+    const user = useSelector(app => app.security.user)
+    console.log(user)
+    useEffect(() => {
+       dispatch(resume())
+    })
     return (
         <>
             <SEO title="Home" />
             <h1>Citas,perfil,etc</h1>
+            {user.id}
             <FullCalendar
                 plugins={[  dayGridPlugin, timeGridPlugin, listPlugin,interactionPlugin  ]}
                 initialView="timeGridWeek"
