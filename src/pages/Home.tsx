@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import SEO from '../components/Commons/SEO'
-
+import {userslist} from '../redux/thunks/Users'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -46,37 +46,89 @@ const HomePage = ():JSX.Element => {
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const [tiempo,setTime]= React.useState({})
+    const [users,setUsers]= React.useState([])
+    const [eventos,setevents]= React.useState(    [
+        { title: 'Cita Pedro', start: '2021-09-28T10:30:00',
+            end: '2021-09-28T11:30:00', },
+        { title: 'Cita Juan', start: '2021-09-29T07:30:00',
+            end: '2021-09-29T08:30:00',  }
+    ])
     const handleOpen = () => {
         setOpen(true);
     };
+
 
     const handleClose = () => {
         setOpen(false);
     };
     const dispatch= useDispatch()
     const user = useSelector(app => app.security.user)
-    console.log(user)
+
     useEffect(() => {
        dispatch(resume())
+    },[])
+    useEffect(() => {
+        async function pacientes(){
+            const a = await dispatch(userslist())
+            console.log(a.payload)
+            setUsers(a.payload)
+        }
 
-    })
+        pacientes()
+
+    },[])
+    function pacientes(){
+
+    }
+    function citas(e: React.FormEvent<HTMLFormElement>){
+        e.preventDefault()
+
+        let end=e.target[1].value.split(":")
+        console.log(end)
+        if(parseInt(end[0])>=10){
+            end[0]=(parseInt(end[0])+1).toString()
+        }else{
+            end[0]="0".concat((parseInt(end[0])+1).toString())
+        }
+        end=end.join(":")
+        console.log(end)
+        const evento = [...eventos, { title: `Cita ${e.target[2].value}`, start: `${e.target[0].value}T${e.target[1].value}`,
+            end: `${e.target[0].value}T${end}`  }]
+     setevents(evento)
+
+        handleClose()
+    }
+
     const body = (
         <div style={modalStyle} className={classes.paper}>
             <h2 id="simple-modal-title">Creacion de Cita</h2>
-            <form>
+            <form onSubmit={ e => citas(e)}>
                 <label></label>
                 <label>Fecha</label>
                 <input type="date" value={tiempo.fecha}/><br/>
                 <label>Hora</label>
                 <input type="time" value={tiempo.hora}/><br/>
                 <label>Paciente:</label>
-                <input type="text" list="users"/>
+                <input type="text" list="users" required={true}/>
                 <datalist id="users">
-                    <option value="Paciente 1 " />
-                    <option value="Paciente 2 "/>
-                    <option value="Paciente 3 "/>
-                    <option value="Paciente 4"/>
-                    <option value="Paciente 5"/>
+                    {users.map( e =>{
+                        return (<option value={e.name} />)
+                        }
+
+                    )}
+
+                </datalist>
+                <br/>
+                <label>Tipo de Consulta:</label>
+                <input type="text" list="tipos" required={true}/>
+
+
+                <datalist id="tipos">
+
+                    <option value="Tipo 1" />
+                    <option value="Tipo 2" />
+                    <option value="Tipo 3" />
+
 
                 </datalist>
                 <br/>
@@ -95,20 +147,26 @@ const HomePage = ():JSX.Element => {
                 initialView="timeGridWeek"
                 editable={true}
                 selectable={true}
-                select={  function(info) {
 
+                select={  function(info) {
+                console.log(info)
            // alert('Clicked on: ' + info);
            // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
            // alert('Current view: ' + info.view.type);
             // change the day's background color just for fun
 
 
-                    var hora=info.endStr.split("T")[1].split("-")[0].split(":")
+                    const hora=info.endStr.split("T")[1].split("-")[0].split(":")
                     if(hora[1]=="30"){
                         hora[1]=":00"
 
                     }else{
-                        hora[0]=(parseInt(hora[0])-1).toString()
+                        if(parseInt(hora[0])>10){
+                            hora[0]=(parseInt(hora[0])-1).toString()
+                        }else{
+                            hora[0]="0".concat((parseInt(hora[0])-1).toString())
+                        }
+
                         hora[1]=":30"
                     }
 
@@ -126,12 +184,7 @@ const HomePage = ():JSX.Element => {
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                 }}
-                events={[
-                    { title: 'Cita Pedro', start: '2021-09-15T10:30:00',
-                        end: '2021-09-15T11:30:00', },
-                    { title: 'Cita Juan', start: '2021-09-16T07:30:00',
-                        end: '2021-09-16T08:30:00',  }
-                ]}
+                events={eventos}
             />
             <Modal
                 open={open}
