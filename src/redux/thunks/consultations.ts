@@ -12,6 +12,7 @@ export const resume = createAsyncThunk(
 
              const response = await axios.post(urls.events)
 
+<<<<<<< HEAD
 
             console.log(response.data.messages)
            const a= response.data.messages.map(e => {
@@ -93,6 +94,18 @@ export const nueva = createAsyncThunk(
 
             console.log(response.data)
             return response
+=======
+            console.log(response)
+
+            const user = {
+                isLogged: true,
+                username: values.username,
+                provider: 'local',
+
+            }
+
+            return user
+>>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
         } catch (e) {
             return thunkApi.rejectWithValue({
                 error: e,

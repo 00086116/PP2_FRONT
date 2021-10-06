@@ -8,7 +8,11 @@ export const initialState = {
 }
 }
 export default createSlice({
+<<<<<<< HEAD
     name: 'consultas',
+=======
+    name: 'security',
+>>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
     initialState: initialState,
     reducers: {
 
