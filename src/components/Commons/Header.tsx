@@ -25,13 +25,24 @@ export default function Header(): JSX.Element {
                     Iniciar Sesion
                 </Link>
             </Button> :
+            <>
+                <Button variant="contained" style={{ backgroundColor: 'blue' }} >
+                    <Link
+                        to="/qrcode"
+                        style={{ color: 'white', textDecoration: 'none' }}
+                    >
+                        Ver QR
+                    </Link>
+                </Button>
             <Button variant="contained" style={{ backgroundColor: 'red' }} onClick={logout}>
                 <div
                     style={{ color: 'white', textDecoration: 'none' }}
                 >
                     Cerrar Sesion
                 </div>
-            </Button>}
+            </Button>
+
+            </>}
         </>,document.getElementById("head"))
     }
     useEffect(()=>{

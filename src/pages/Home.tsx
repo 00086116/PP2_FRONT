@@ -70,6 +70,12 @@ const HomePage = ():JSX.Element => {
 
 
 
+
+
+    useEffect(() => {
+       dispatch(resume())
+    },[])
+    useEffect(() => {
         async function pacientes() {
             const a = await dispatch(userslist())
 
@@ -80,17 +86,6 @@ const HomePage = ():JSX.Element => {
             console.log(eventos)
             const c = await dispatch(tipos())
             settipos(c.payload)
-        }
-
-    useEffect(() => {
-       dispatch(resume())
-    },[])
-    useEffect(() => {
-        async function pacientes(){
-            const a = await dispatch(userslist())
-            console.log(a.payload)
-            setUsers(a.payload)
-
         }
 
         pacientes()
