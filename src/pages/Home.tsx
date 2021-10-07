@@ -9,12 +9,12 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-<<<<<<< HEAD
+
 import { resume,nueva } from '../redux/thunks/consultations'
 import { tipos } from '../redux/thunks/types'
-=======
-import { resume } from '../redux/thunks/consultations'
->>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
+
+
+
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
@@ -52,19 +52,10 @@ const HomePage = ():JSX.Element => {
     const [open, setOpen] = React.useState(false);
     const [tiempo,setTime]= React.useState({})
     const [users,setUsers]= React.useState([])
-<<<<<<< HEAD
+
     const [types,settipos]= React.useState([])
 
-    const [eventos,setevents]= React.useState(    [
-
-=======
-    const [eventos,setevents]= React.useState(    [
-        { title: 'Cita Pedro', start: '2021-09-28T10:30:00',
-            end: '2021-09-28T11:30:00', },
-        { title: 'Cita Juan', start: '2021-09-29T07:30:00',
-            end: '2021-09-29T08:30:00',  }
->>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
-    ])
+    const [eventos,setevents]= React.useState(    [ ])
     const handleOpen = () => {
         setOpen(true);
     };
@@ -76,21 +67,21 @@ const HomePage = ():JSX.Element => {
     const dispatch= useDispatch()
     const user = useSelector(app => app.security.user)
 
-<<<<<<< HEAD
 
-    useEffect(() => {
-        async function pacientes(){
+
+
+        async function pacientes() {
             const a = await dispatch(userslist())
 
             setUsers(a.payload)
-            const b= await dispatch(resume())
+            const b = await dispatch(resume())
             console.log(b)
             setevents(b.payload)
             console.log(eventos)
-            const c= await dispatch(tipos())
+            const c = await dispatch(tipos())
             settipos(c.payload)
+        }
 
-=======
     useEffect(() => {
        dispatch(resume())
     },[])
@@ -99,53 +90,51 @@ const HomePage = ():JSX.Element => {
             const a = await dispatch(userslist())
             console.log(a.payload)
             setUsers(a.payload)
->>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
+
         }
 
         pacientes()
 
     },[])
-    function pacientes(){
 
-    }
-<<<<<<< HEAD
-    async function citas(e: React.FormEvent<HTMLFormElement>){
-=======
-    function citas(e: React.FormEvent<HTMLFormElement>){
->>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
+
+    async function citas(e: React.FormEvent<HTMLFormElement>) {
+
         e.preventDefault()
 
-        let end=e.target[1].value.split(":")
+        let end = e.target[1].value.split(":")
         console.log(end)
-<<<<<<< HEAD
-        if(parseInt(end[0])>=10 || parseInt(end[0])+1>=10){
-=======
-        if(parseInt(end[0])>=10){
->>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
-            end[0]=(parseInt(end[0])+1).toString()
-        }else{
-            end[0]="0".concat((parseInt(end[0])+1).toString())
-        }
-        end=end.join(":")
-        console.log(end)
-        const evento = [...eventos, { title: `Cita ${e.target[2].value}`, start: `${e.target[0].value}T${e.target[1].value}`,
-            end: `${e.target[0].value}T${end}`  }]
-     setevents(evento)
-<<<<<<< HEAD
-        let values={
-            paciente:e.target[2].value,
-            tipo:e.target[3].value,
-            date:e.target[0].value,
-            start:e.target[1].value,
-            end
 
-        }
-        const a = await dispatch(nueva(values))
-        console.log(a)
-=======
+        if (parseInt(end[0]) >= 10 || parseInt(end[0]) + 1 >= 10) {
 
->>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
-        handleClose()
+            if (parseInt(end[0]) >= 10) {
+
+                end[0] = (parseInt(end[0]) + 1).toString()
+            } else {
+                end[0] = "0".concat((parseInt(end[0]) + 1).toString())
+            }
+            end = end.join(":")
+            console.log(end)
+            const evento = [...eventos, {
+                title: `Cita ${e.target[2].value}`, start: `${e.target[0].value}T${e.target[1].value}`,
+                end: `${e.target[0].value}T${end}`
+            }]
+            setevents(evento)
+
+            let values = {
+                paciente: e.target[2].value,
+                tipo: e.target[3].value,
+                date: e.target[0].value,
+                start: e.target[1].value,
+                end
+
+            }
+            const a = await dispatch(nueva(values))
+            console.log(a)
+
+
+            handleClose()
+        }
     }
 
     const body = (
@@ -173,19 +162,19 @@ const HomePage = ():JSX.Element => {
 
 
                 <datalist id="tipos">
-<<<<<<< HEAD
+
                     {types.map( e =>{
                             return (<option value={e.consulta_nombre} />)
                         }
 
                     )}
-=======
+
 
                     <option value="Tipo 1" />
                     <option value="Tipo 2" />
                     <option value="Tipo 3" />
 
->>>>>>> 3a909ad4ec0234219d2b20474d13ac07a35c2767
+
 
                 </datalist>
                 <br/>
